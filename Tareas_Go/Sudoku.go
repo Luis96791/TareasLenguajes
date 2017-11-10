@@ -60,13 +60,32 @@ func resolver(matriz [][]int, fila int, columna int) bool {
 }
 
 func evaluar(matriz [][]int, fila int, columna int, pivote int) bool{
-	
+
+	if !evaluarVertical(matriz, columna, pivote) || !evaluarHorizontal(matriz, fila, pivote) || !evaluarSubMatriz(matriz, fila, columna, pivote) {
+		return false
+	}
+	return true
+}
+
+func evaluarHorizontal(matriz [][]int, fila int, pivote int) bool {
 	for i := 0; i < len(matriz); i++ {
-		if matriz[fila][i] == pivote || matriz[i][columna] == pivote {
+		if matriz[fila][i] == pivote {
 			return false
 		}
 	}
+	return true
+}
 
+func evaluarVertical(matriz [][]int, columna int, pivote int) bool {
+	for i := 0; i < len(matriz); i++ {
+		if matriz[i][columna] == pivote {
+			return false
+		}
+	}
+	return true
+}
+
+func evaluarSubMatriz(matriz [][]int, fila int, columna int, pivote int) bool {
 	var _fila, _columna int
 
 	_fila = (fila/3)*3
