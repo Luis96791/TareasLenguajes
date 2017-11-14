@@ -54,20 +54,44 @@ func seleccionarSimilares(palabra string, palabras []string) []string {
 	return similares
 }
 
-func convertirPalabra(entrada string, salida string, similares []string) []string {
+func delimitarPalabra(entrada string, salida string, similares []string) []string {
 	
-	parents := make([]string, 0)
-	
-	
+	palabras := make([]string, 0)
 
-	return parents
+	pos1 := buscarPalabra(entrada, similares)
+	pos2 := buscarPalabra(salida, similares)
+
+	if pos1 != -1 || pos2 != -1 {
+		if pos1 < pos2 {
+			for i := pos1; i <= pos2; i++ {
+				palabras = append(palabras, similares[i])
+			}	
+		}
+		if pos1 > pos2 {
+			for i := pos1; i >= pos2; i-- {
+				palabras = append(palabras, similares[i])
+			}
+		}
+	}
+	return palabras
 }
+
+func buscarPalabra(palabra string, similares []string) int {
+
+	for i := 0; i < len(similares); i++ {
+		if similares[i] == palabra {
+			return i
+		}
+	}
+	return -1
+}
+
 
 func main() {
 	
 	palabras := convertirArreglo()
 	similares := seleccionarSimilares("lead", palabras)
-	parents := convertirPalabra("cat", "dog", similares)
+	palabras_delimitadas := delimitarPalabra("lead", "gold", similares)
 
-	imprimirArreglo(parents)
+	imprimirArreglo(palabras_delimitadas)
 }

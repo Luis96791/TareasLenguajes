@@ -195,7 +195,7 @@ func main() {
 	seguir := true
 
 	for seguir {
-		fmt.Println("-- Lista enlazada doble Personas --")
+		fmt.Println("-- Lista enlazada simple Personas --")
 		fmt.Println("\t1-. Agregar")
 		fmt.Println("\t2-. Buscar")
 		fmt.Println("\t3-. Eliminar")

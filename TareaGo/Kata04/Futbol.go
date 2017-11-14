@@ -70,6 +70,21 @@ func convertirArreglo(futbol []Futbol) []Futbol {
 	return futbol
 }
 
+func diferenciaMin(futbol []Futbol) {
+	
+	idx := 0; diferencia := 300; 
+
+	for i := 0; i < len(futbol); i++ {
+		res := (futbol[i].F - futbol[i].A)
+		if res < diferencia {
+			diferencia = res
+			idx = i
+		}
+	}
+
+	fmt.Println("Team: ", futbol[idx])
+}
+
 func imprimirArreglo(futbol []Futbol) {
 	fmt.Println("Team\t\tF\tA")
 	for i := 0; i < len(futbol); i++ {
@@ -81,4 +96,5 @@ func main() {
 	futbol := make([]Futbol, 20)
 	futbol = convertirArreglo(futbol)
 	imprimirArreglo(futbol)
+	diferenciaMin(futbol)
 }

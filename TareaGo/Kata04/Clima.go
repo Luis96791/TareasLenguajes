@@ -24,7 +24,7 @@ func leerArchivo() string{
 	return cadena
 }
 
-func convertirArreglo(clima []Clima) []Clima{
+func convertirArreglo(clima []Clima) []Clima {
 
 	cadena := leerArchivo()
 	var cad1, cad2, cad3 string
@@ -76,10 +76,40 @@ func imprimirArreglo(clima []Clima) {
 	}
 }
 
+func obtenerMnT(clima []Clima) {
+	
+	var temp Clima
+	temp.MnT = 100
+
+	for i := 0; i < len(clima); i++ {
+		if clima[i].MnT < temp.MnT {
+			temp = clima[i]
+		}
+	}
+
+	fmt.Println("Dia: ", temp.Dy, "MnT: ", temp.MnT)
+}
+
+func obtenerMxT(clima []Clima) {
+	
+	var temp Clima
+	temp.MxT = 0
+
+	for i := 0; i < len(clima); i++ {
+		if clima[i].MxT > temp.MxT {
+			temp = clima[i]
+		}
+	}
+
+	fmt.Println("Dia: ", temp.Dy, "MxT: ", temp.MxT)
+}
+
 func main() {
 
 	clima := make([]Clima, 30)
 
 	clima = convertirArreglo(clima)
 	imprimirArreglo(clima)
+	obtenerMnT(clima)
+	obtenerMxT(clima)
 }
