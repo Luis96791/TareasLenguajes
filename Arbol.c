@@ -42,7 +42,7 @@ void insertarNodo(raiz *_raiz, int numero)
 
 void inOrden(raiz _raiz)
 {
-	raiz actual, previo;
+	raiz actual, siguiente;
 
 	if (_raiz == NULL)
 	{
@@ -58,20 +58,20 @@ void inOrden(raiz _raiz)
 			actual = actual->hijo_der;
 		}
 		else{
-			previo = actual->hijo_izq;
+			siguiente = actual->hijo_izq;
 
-			while(previo->hijo_der != NULL && previo->hijo_der != actual)
+			while(siguiente->hijo_der != NULL && siguiente->hijo_der != actual)
 			{
-				previo = previo->hijo_der;
+				siguiente = siguiente->hijo_der;
 			}
 
-			if (previo->hijo_der == NULL)
+			if (siguiente->hijo_der == NULL)
 			{
-				previo->hijo_der = actual;
+				siguiente->hijo_der = actual;
 				actual = actual->hijo_izq;
 			}
 			else{
-				previo->hijo_der = NULL;
+				siguiente->hijo_der = NULL;
 				printf("%d\n", actual->numero);
 				actual = actual->hijo_der;
 			}
