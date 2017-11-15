@@ -30,13 +30,13 @@ void insertarNodo(raiz *_raiz, int numero)
 	}
 }
 
-// void inOrden(raiz _raiz)
-// {
+//void inOrdenRec(raiz _raiz)
+//{
 // 	if (_raiz != NULL)
 // 	{
-// 		inOrden(_raiz->hijo_izq);
+// 		inOrdenRec(_raiz->hijo_izq);
 // 		printf("%d\n", _raiz->numero);
-// 		inOrden(_raiz->hijo_der);
+// 		inOrdenRec(_raiz->hijo_der);
 // 	}
 // }
 
@@ -85,21 +85,29 @@ int main(int argc, char const *argv[])
 {
 	raiz _raiz = NULL;
 
-	insertarNodo(&_raiz, 41);
-	insertarNodo(&_raiz, 65);
+	insertarNodo(&_raiz, 100);
 	insertarNodo(&_raiz, 50);
-	insertarNodo(&_raiz, 47);
-	insertarNodo(&_raiz, 55);
-	insertarNodo(&_raiz, 91);
-	insertarNodo(&_raiz, 72);
-	insertarNodo(&_raiz, 99);
-	insertarNodo(&_raiz, 20);
-	insertarNodo(&_raiz, 29);
-	insertarNodo(&_raiz, 22);
-	insertarNodo(&_raiz, 32);
-	insertarNodo(&_raiz, 11);
-	insertarNodo(&_raiz, 15);
-	insertarNodo(&_raiz, 8);
+	insertarNodo(&_raiz, 150);
+	insertarNodo(&_raiz, 25);
+	insertarNodo(&_raiz, 90);
+	insertarNodo(&_raiz, 125);
+	insertarNodo(&_raiz, 190);
+	insertarNodo(&_raiz, 12);
+	insertarNodo(&_raiz, 40);
+	insertarNodo(&_raiz, 60);
+	insertarNodo(&_raiz, 95);
+	insertarNodo(&_raiz, 110);
+	insertarNodo(&_raiz, 140);
+	insertarNodo(&_raiz, 160);
+	insertarNodo(&_raiz, 200);
+	insertarNodo(&_raiz, 5);	
+	insertarNodo(&_raiz, 20);	
+	insertarNodo(&_raiz, 30);	
+	insertarNodo(&_raiz, 45);	
+	insertarNodo(&_raiz, 55);	
+	insertarNodo(&_raiz, 70);	
+	insertarNodo(&_raiz, 92);	
+	insertarNodo(&_raiz, 96);
 
 	inOrden(_raiz);
 
