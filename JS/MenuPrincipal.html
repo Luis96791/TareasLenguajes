@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>RADIO FARO</title>
+        
+        <script type = "text/javascript">
+            function hacer_click()
+            {
+                alert("Me haz dado un click");
+            }
+            
+            function mostrar() {
+                document.getElementById("sidebar").style.width = "300px";
+                document.getElementById("contenido").style.marginLeft = "300px";
+                document.getElementById("abrir").style.display = "none";
+                document.getElementById("cerrar").style.display = "inline";
+            }
+
+            function ocultar() {
+                document.getElementById("sidebar").style.width = "0";
+                document.getElementById("contenido").style.marginLeft = "0";
+                document.getElementById("abrir").style.display = "inline";
+                document.getElementById("cerrar").style.display = "none";
+            }
+        </script>
+        
+        <meta name="description" content="Descripcion Aqui">
+        <link rel="stylesheet" href="main.css">
+
+        <style>
+            
+        </style>
+    </head>
+    
+    <body>
+        <h2>Radio Faro</h2>
+        <button class="button" onclick="mostrar()"><span>Iniciar Sesion</span></button>
+        
+        <button class="button" onclick ="hacer_click()"><span>Registrarse</span></button>
+    </body>
+    
+    <div id="registro">
+        
+        <label for="fname">Nombre de Usuario</label>
+        <input type="text" id="username" name="username">
+
+        <label for="Contraseña">Contraseña</label>
+        <input type="password" id="password" name="pass">
+        
+        <label for="Edad">Edad</label>
+        <input type="text" id="edad" name="edad">
+        
+        <input type="submit" value="Aceptar">
+    </div>
+    
+</html>
+
+
+
