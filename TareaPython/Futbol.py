@@ -24,7 +24,7 @@ class Equipo(object):
     self.a = a
 
   def imprimir(self):
-    print self.getTeam(), self.getF(), self.getA()
+    print self.getTeam(), self.getF(), "\t", self.getA()
 
 
 class ArregloEquipos(object):
@@ -32,10 +32,30 @@ class ArregloEquipos(object):
   def __init__(self):
     self.arreglo = []
 
+  def leerArchivo(self):
+    archivo = open("football.dat")
+    archivo.seek(67,0)
+
+    for x in range(21):
+      if x == 17:
+        archivo.seek(59, 1)
+      else:
+        equipo = Equipo("", 0, 0)
+        equipo.setTeam(archivo.read(16))
+        archivo.seek(20, 1)
+        equipo.setF(int(archivo.read(2)))
+        archivo.seek(5, 1)
+        equipo.setA(int(archivo.read(2)))
+        self.agregar(equipo)
+        archivo.seek(14, 1)
+    archivo.close()
+
   def agregar(self, equipo):
     self.arreglo.append(equipo)
 
   def imprimir(self):
+    print "Team\t\t", "F\t", "A"
+    print("--------------------------")
     for x in range(len(self.arreglo)):
       self.arreglo[x].imprimir()
 
@@ -56,28 +76,10 @@ class ArregloEquipos(object):
 def main():
   
   arregloEquipos = ArregloEquipos()
-   
-  archivo = open("football.dat")
-  archivo.seek(67,0)
-
-  for x in range(21):
-    if x == 17:
-      archivo.seek(59, 1)
-    else:
-      equipo = Equipo("", 0, 0)
-      equipo.setTeam(archivo.read(16))
-      archivo.seek(20, 1)
-      equipo.setF(int(archivo.read(2)))
-      archivo.seek(5, 1)
-      equipo.setA(int(archivo.read(2)))
-      arregloEquipos.agregar(equipo)
-      archivo.seek(14, 1)
- 
+  
+  arregloEquipos.leerArchivo()
   arregloEquipos.imprimir()
   arregloEquipos.menorDiferencia()
-
-  archivo.close()
-
 
 if __name__ == '__main__':
 	main()
