@@ -54,15 +54,23 @@ class ListaPersonas(object):
 			return
 
 		if self.inicio_lista.nombre == persona.nombre:
+			if self.inicio_lista.siguiente == None:
+				self.inicio_lista = self.fin_lista = None
+				return
+			self.inicio_lista.siguiente.anterior = None
 			self.inicio_lista = self.inicio_lista.siguiente
 			return
 
-		nodo_temporal = self.inicio_lista
-		while nodo_temporal.siguiente != None:
-			if nodo_temporal.siguiente.nombre == persona.nombre:
-				nodo_temporal.siguiente = nodo_temporal.siguiente.siguiente
-				return
-			nodo_temporal = nodo_temporal.siguiente
+		if self.fin_lista.nombre == persona.nombre:
+			self.fin_lista.anterior.siguiente = None
+			self.fin_lista = self.fin_lista.anterior
+			return
+
+		nodo_temporal = self.buscar(persona)
+
+		if nodo_temporal != None:
+			nodo_temporal.anterior.siguiente = nodo_temporal.siguiente
+			nodo_temporal.siguiente.anterior = nodo_temporal.anterior
 
 	def imprimir(self, modo):
 		if self.isListaVacia():
@@ -106,7 +114,7 @@ class ListaPersonas(object):
 def main():
 	listaPersonas = ListaPersonas()
 
-	"""p1 = Persona('Luis', 13)
+	p1 = Persona('Luis', 13)
 	p2 = Persona('Jose', 33)
 	p3 = Persona('Mario', 16)
 	p4 = Persona('Martha', 86)
@@ -116,7 +124,7 @@ def main():
 	listaPersonas.insertar(p2)
 	listaPersonas.insertar(p3)
 	listaPersonas.insertar(p4)
-	listaPersonas.insertar(p5)"""
+	listaPersonas.insertar(p5)
 
 	detener = False
 
@@ -144,8 +152,9 @@ def main():
 		elif opcion == 3:
 			nombre = ingresarNombre()
 			persona = pasarParametros(nombre, 0)
+			listaPersonas.eliminar(persona)
 		elif opcion == 4:
-			listaPersonas.imprimir("DES")
+			listaPersonas.imprimir("ASC")
 		elif opcion == 5:
 			listaPersonas.convertirArreglo()
 		elif opcion == 6:
