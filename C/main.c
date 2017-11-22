@@ -8,6 +8,7 @@
 #include "Empleado.c"
 #include "ListaEmpleados.c"
 #include "ManejoLista.c"
+#include "Informe.c"
 
 typedef enum{false = 0, true = !false}bool;
 
@@ -33,7 +34,8 @@ struct Empleado* agregarNuevoEmpleado()
 
 int main(int argc, char const *argv[])
 {
-	crearArchivo();
+	raiz _raiz = NULL;
+	// crearArchivo();
 	struct ListaEmpleados* listaEmpleados;
 	struct Empleado* empleado = nuevoEmpleado();
 	listaEmpleados = nuevaListaEmpleados();
@@ -62,6 +64,8 @@ int main(int argc, char const *argv[])
 			case 3:
 				break;
 			case 4:
+				agregarListaArbol(listaEmpleados);
+				imprimir(_raiz);
 				break;
 			default:
 				exit(EXIT_SUCCESS);

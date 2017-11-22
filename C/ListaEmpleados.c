@@ -51,7 +51,6 @@ void agregar(struct ListaEmpleados* listaEmpleados, struct Empleado* empleado)
 void escribirListaEnArchivo(struct ListaEmpleados* listaEmpleados)
 {
 	struct Empleado* nodo_temporal = listaEmpleados->inicio_lista;
-	char tipo;
 
 	while(nodo_temporal != NULL)
 	{
