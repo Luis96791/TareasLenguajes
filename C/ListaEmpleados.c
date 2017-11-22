@@ -7,6 +7,9 @@ struct ListaEmpleados
 	struct Empleado* fin_lista;
 };
 
+void escribirListaEnArchivo(struct ListaEmpleados* listaEmpleados);
+void escribirEmpleado(struct Empleado* empleado);
+
 struct ListaEmpleados* nuevaListaEmpleados()
 {
 	return (struct ListaEmpleados *)malloc(sizeof(struct ListaEmpleados));
@@ -42,6 +45,18 @@ void agregar(struct ListaEmpleados* listaEmpleados, struct Empleado* empleado)
 	}
 	else{
 		printf("El empleado con este codigo ya existe\n");
+	}
+}
+
+void escribirListaEnArchivo(struct ListaEmpleados* listaEmpleados)
+{
+	struct Empleado* nodo_temporal = listaEmpleados->inicio_lista;
+	char tipo;
+
+	while(nodo_temporal != NULL)
+	{
+		escribirEmpleado(nodo_temporal);
+		nodo_temporal = nodo_temporal->siguiente;
 	}
 }
 
