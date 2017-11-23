@@ -10,10 +10,11 @@ void escribirEmpleadoMensual(struct Empleado* empleado, FILE* file);
 void escribirEmpleadoComision(struct Empleado* empleado, FILE *file);
 void escribirEmpleadoPorHora(struct Empleado* empleado, FILE *file);
 
-/*struct Empleado* leerEmpleado();
-struct Empleado* cargarEmpleado(char* dataFile);
+void leerEmpleado();
+struct Empleado* cargarEmpleado(char tipo);
 char leerTipoEmpleado(char* dataFile);
-struct Empleado* cargarEmpleadoMensual(char* dataFile);*/
+struct Empleado* cargarEmpleadoMensual(FILE* file, struct Empleado* empleado);
+
 
 void crearArchivo()
 {
@@ -114,49 +115,50 @@ void escribirEmpleadoPorHora(struct Empleado* empleado, FILE *file)
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-/*
-struct Empleado* leerEmpleado()
+
+void leerEmpleado()
 {
-	FILE *file;	
+	FILE *file;
 	struct Empleado* empleado;
 
 	file = fopen("ListaEmpleados.list", "r");
 
-	fseek(file, 0L, SEEK_END);
-	long int tamanio;
-	tamanio = ftell(file);
-	char dataFile[tamanio];
-	rewind(file);
+	char linea[2];
 
-	while(!feof(file))
-	{
-		fscanf(file, "%s", dataFile);
-		cargarEmpleado(dataFile);
-	}
+	fgets(linea, (sizeof(linea)/sizeof(char)), file);
+	empleado = cargarEmpleado(linea[0]);
+	empleado = cargarEmpleadoMensual(file, empleado);
 
 	fclose(file);
 }
 
-struct Empleado* cargarEmpleado(char* dataFile)
+struct Empleado* cargarEmpleadoMensual(FILE *file, struct Empleado* empleado)
 {
-	char tipoEmpleado = dataFile[0];
-
-	if (tipoEmpleado == 'A')
-	{
-		cargarEmpleadoMensual(dataFile);
-	}
+	char linea[20];
+	empleado->infoEmpleado->codigo_empleado = atoi(fgets(linea, (sizeof(linea)/sizeof(char)), file));
 }
 
-struct Empleado* cargarEmpleadoMensual(char* dataFile)
+struct Empleado* cargarEmpleado(char tipo)
 {
-	int pos = 2, i = 0;
-	char* codigo_empleado;
-	struct Empleado *empleado = nuevoEmpleado();
+	struct Empleado *empleado;
+	empleado->infoEmpleado = nuevoInfoEmpleado();
 
-	while(dataFile[pos] != ',')
+	if (tipo == 'A')
 	{
-		codigo_empleado[i] = dataFile[pos];
-		pos++; i++;
+		empleado->empleadoMensual = nuevoEmpleadoMensual();
+		return empleado;
 	}
-	printf("%s\n", codigo_empleado);
-}*/
+
+	if (tipo == 'B')
+	{
+		empleado->empleadoComision = nuevoEmpleadoComision();
+		return empleado;
+	}
+
+	if (tipo == 'C')
+	{
+		empleado->empleadoPorHora = nuevoEmpleadoPorHora();
+		return empleado;
+	}	
+	return NULL;
+}

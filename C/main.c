@@ -62,6 +62,7 @@ int main(int argc, char const *argv[])
 				escribirListaEnArchivo(listaEmpleados);
 				break;
 			case 3:
+				leerEmpleado();
 				break;
 			case 4:
 				agregarListaArbol(listaEmpleados, &_raiz);
