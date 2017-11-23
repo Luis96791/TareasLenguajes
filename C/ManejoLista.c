@@ -14,6 +14,7 @@ void leerEmpleado(struct ListaEmpleados* listaEmpleados);
 struct Empleado* cargarEmpleado(char tipo);
 char leerTipoEmpleado(char* dataFile);
 struct Empleado* cargarEmpleadoMensual(FILE* file, char tipo);
+struct Empleado* cargarEmpleadoComision(FILE *file, char tipo);
 struct Empleado* cargarEmpleadoPorHora(FILE *file, char tipo);
 
 
@@ -37,6 +38,7 @@ void escribirEmpleado(struct Empleado* empleado)
 	char tipo = obtenerTipoEmpleado(empleado);
 
 	fprintf(file, "%c\n", tipo);
+	printf("%c\n", tipo);
 	escribirInfoEmpleado(empleado, file);
 
 	if (tipo == 'A')
@@ -71,7 +73,7 @@ char obtenerTipoEmpleado(struct Empleado* empleado)
 	{
 		return 'C';
 	}
-	return 'X';
+	return ' ';
 }
 
 void escribirInfoEmpleado(struct Empleado* empleado, FILE *file)
@@ -135,6 +137,11 @@ void leerEmpleado(struct ListaEmpleados* listaEmpleados)
 			agregar(listaEmpleados, empleado);
 		}
 
+		if (tipo == 'B')
+		{
+			empleado = cargarEmpleadoComision(file, tipo);
+		}
+
 		if (tipo == 'C')
 		{
 			empleado = cargarEmpleadoPorHora(file, tipo);
@@ -157,6 +164,28 @@ struct Empleado* cargarEmpleadoMensual(FILE *file, char tipo)
 	empleado->infoEmpleado->nombre_empleado = nombre_empleado;
 	empleado->infoEmpleado->edad = edad;
 	empleado->empleadoMensual->salario = salario;
+
+	return empleado;
+}
+
+struct Empleado* cargarEmpleadoComision(FILE *file, char tipo)
+{
+	struct Empleado* empleado = cargarEmpleado(tipo);
+	char* nombre_empleado = (char *)malloc(sizeof(char)*60);
+	int codigo_empleado, edad, pos = 0;
+	char zona;
+
+	fscanf(file, "%d %s %d %c", &codigo_empleado, nombre_empleado, &edad, &zona);
+
+	while(!file.eof())
+	{
+		fscanf(file, "%f", &empleado->empleadoComision->ventas[pos]);
+		pos++;
+	}
+
+	empleado->infoEmpleado->codigo_empleado = codigo_empleado;
+	empleado->infoEmpleado->nombre_empleado = nombre_empleado;
+	empleado->infoEmpleado->edad = edad;
 
 	return empleado;
 }

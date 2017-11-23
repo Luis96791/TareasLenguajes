@@ -13,7 +13,11 @@ void crearArchivo();
 
 struct ListaEmpleados* nuevaListaEmpleados()
 {
-	return (struct ListaEmpleados *)malloc(sizeof(struct ListaEmpleados));
+	struct ListaEmpleados *listaEmpleados;
+	listaEmpleados = (struct ListaEmpleados *)malloc(sizeof(struct ListaEmpleados));
+	listaEmpleados->inicio_lista = NULL;
+	listaEmpleados->fin_lista = NULL;
+	return listaEmpleados;
 }
 
 struct Empleado* buscar(struct ListaEmpleados* listaEmpleados, int codigo)

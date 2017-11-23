@@ -13,7 +13,14 @@ struct Empleado
 
 struct Empleado* nuevoEmpleado( void )
 {
-	return (struct Empleado *)malloc(sizeof(struct Empleado));
+	struct Empleado *empleado;
+	empleado = (struct Empleado *)malloc(sizeof(struct Empleado));
+	empleado->infoEmpleado = NULL;
+	empleado->empleadoMensual = NULL;
+	empleado->empleadoComision = NULL;
+	empleado->empleadoPorHora = NULL;
+	empleado->siguiente = NULL;
+	return empleado;
 }
 
 struct Empleado* ingresarEmpleado(int tipo)

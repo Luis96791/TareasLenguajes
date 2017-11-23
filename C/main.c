@@ -15,7 +15,7 @@ typedef enum{false = 0, true = !false}bool;
 struct Empleado* agregarNuevoEmpleado()
 {
 	struct Empleado* empleado;
-	int opcion;
+	int opcion = 0;
 	printf("1-. Empleado Mensual\n");
 	printf("2-. Empleado Comision\n");
 	printf("3-. Empleado Por Hora\n\n");
@@ -28,6 +28,7 @@ struct Empleado* agregarNuevoEmpleado()
 	}
 	else{
 		printf("Opcion invalida\n");
+		empleado = NULL;
 	}
 	return empleado;
 }
