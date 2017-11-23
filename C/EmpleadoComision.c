@@ -37,3 +37,11 @@ struct EmpleadoComision* ingresarEmpleadoComision( void )
 	}
 	return empleadoComision;
 }
+
+/*void imprimirVentas(struct EmpleadoComision* empleadoComision)
+{
+	for (int i = 0; i < 8; i++)
+	{
+		printf("%2.f\n", empleadoComision->ventas[i]);
+	}
+}*/

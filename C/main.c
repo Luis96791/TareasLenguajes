@@ -63,7 +63,7 @@ int main(int argc, char const *argv[])
 				break;
 			case 3:
 				leerEmpleado(listaEmpleados);
-				imprimirLista(listaEmpleados);
+				// imprimirLista(listaEmpleados);
 				break;
 			case 4:
 				agregarListaArbol(listaEmpleados, &_raiz);

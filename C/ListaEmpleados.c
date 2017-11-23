@@ -7,6 +7,7 @@ struct ListaEmpleados
 	struct Empleado* fin_lista;
 };
 
+struct ListaEmpleados* vaciarListaEmpleados(struct ListaEmpleados* listaEmpleados);
 void escribirListaEnArchivo(struct ListaEmpleados* listaEmpleados);
 void escribirEmpleado(struct Empleado* empleado);
 void crearArchivo();
@@ -17,6 +18,12 @@ struct ListaEmpleados* nuevaListaEmpleados()
 	listaEmpleados = (struct ListaEmpleados *)malloc(sizeof(struct ListaEmpleados));
 	listaEmpleados->inicio_lista = NULL;
 	listaEmpleados->fin_lista = NULL;
+	return listaEmpleados;
+}
+
+struct ListaEmpleados* vaciarListaEmpleados(struct ListaEmpleados* listaEmpleados)
+{
+	listaEmpleados->inicio_lista = listaEmpleados->fin_lista = NULL;
 	return listaEmpleados;
 }
 

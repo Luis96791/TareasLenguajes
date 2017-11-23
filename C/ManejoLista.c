@@ -13,9 +13,10 @@ void escribirEmpleadoPorHora(struct Empleado* empleado, FILE *file);
 void leerEmpleado(struct ListaEmpleados* listaEmpleados);
 struct Empleado* cargarEmpleado(char tipo);
 char leerTipoEmpleado(char* dataFile);
-struct Empleado* cargarEmpleadoMensual(FILE* file, char tipo);
-struct Empleado* cargarEmpleadoComision(FILE *file, char tipo);
-struct Empleado* cargarEmpleadoPorHora(FILE *file, char tipo);
+struct Empleado* cargarInfoEmpleado(FILE *file, char tipo);
+struct Empleado* cargarEmpleadoMensual(FILE *file, struct Empleado* empleado);
+struct Empleado* cargarEmpleadoComision(FILE *file, struct Empleado* empleado);
+struct Empleado* cargarEmpleadoPorHora(FILE *file, struct Empleado* empleado);
 
 
 void crearArchivo()
@@ -38,7 +39,6 @@ void escribirEmpleado(struct Empleado* empleado)
 	char tipo = obtenerTipoEmpleado(empleado);
 
 	fprintf(file, "%c\n", tipo);
-	printf("%c\n", tipo);
 	escribirInfoEmpleado(empleado, file);
 
 	if (tipo == 'A')
@@ -116,12 +116,14 @@ void escribirEmpleadoPorHora(struct Empleado* empleado, FILE *file)
 	fprintf(file, "%d\n", horasTrabajadas);
 }
 
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+   ----------------------------------------------------------------------------- */
 
 void leerEmpleado(struct ListaEmpleados* listaEmpleados)
 {
 	FILE *file;
+
+	listaEmpleados = vaciarListaEmpleados(listaEmpleados);
 
 	file = fopen("ListaEmpleados.list", "r");
 	char tipo;
@@ -133,78 +135,27 @@ void leerEmpleado(struct ListaEmpleados* listaEmpleados)
 
 		if (tipo == 'A')
 		{
-			empleado = cargarEmpleadoMensual(file, tipo);
+			empleado = cargarInfoEmpleado(file, tipo);
+			empleado = cargarEmpleadoMensual(file, empleado);	
 			agregar(listaEmpleados, empleado);
 		}
 
 		if (tipo == 'B')
 		{
-			empleado = cargarEmpleadoComision(file, tipo);
+			empleado = cargarInfoEmpleado(file, tipo);
+			empleado = cargarEmpleadoComision(file, empleado);	
+			agregar(listaEmpleados, empleado);
 		}
 
 		if (tipo == 'C')
 		{
-			empleado = cargarEmpleadoPorHora(file, tipo);
+			empleado = cargarInfoEmpleado(file, tipo);
+			empleado = cargarEmpleadoPorHora(file, empleado);
 			agregar(listaEmpleados, empleado);
-		}	
+		}
 	}
 
 	fclose(file);
-}
-
-struct Empleado* cargarEmpleadoMensual(FILE *file, char tipo)
-{
-	struct Empleado* empleado = cargarEmpleado(tipo);
-	char* nombre_empleado = (char *)malloc(sizeof(char)*60);
-	int codigo_empleado, edad;
-	float salario;
-	fscanf(file, "%d %s %d %f",  &codigo_empleado, nombre_empleado, &edad, &salario);
-
-	empleado->infoEmpleado->codigo_empleado = codigo_empleado;
-	empleado->infoEmpleado->nombre_empleado = nombre_empleado;
-	empleado->infoEmpleado->edad = edad;
-	empleado->empleadoMensual->salario = salario;
-
-	return empleado;
-}
-
-struct Empleado* cargarEmpleadoComision(FILE *file, char tipo)
-{
-	struct Empleado* empleado = cargarEmpleado(tipo);
-	char* nombre_empleado = (char *)malloc(sizeof(char)*60);
-	int codigo_empleado, edad, pos = 0;
-	char zona;
-
-	fscanf(file, "%d %s %d %c", &codigo_empleado, nombre_empleado, &edad, &zona);
-
-	while(!file.eof())
-	{
-		fscanf(file, "%f", &empleado->empleadoComision->ventas[pos]);
-		pos++;
-	}
-
-	empleado->infoEmpleado->codigo_empleado = codigo_empleado;
-	empleado->infoEmpleado->nombre_empleado = nombre_empleado;
-	empleado->infoEmpleado->edad = edad;
-
-	return empleado;
-}
-
-struct Empleado* cargarEmpleadoPorHora(FILE *file, char tipo)
-{
-	struct Empleado* empleado = cargarEmpleado(tipo);
-	char* nombre_empleado = (char *)malloc(sizeof(char)*60);
-	char zona;
-	int codigo_empleado, edad, horasTrabajadas;
-	fscanf(file, "%d %s %d %c %d", &codigo_empleado, nombre_empleado, &edad, &zona, &horasTrabajadas);
-
-	empleado->infoEmpleado->codigo_empleado = codigo_empleado;
-	empleado->infoEmpleado->nombre_empleado = nombre_empleado;
-	empleado->infoEmpleado->edad = edad;
-	empleado->empleadoPorHora->zona = zona;
-	empleado->empleadoPorHora->horasTrabajadas = horasTrabajadas;
-
-	return empleado;
 }
 
 struct Empleado* cargarEmpleado(char tipo)
@@ -230,4 +181,57 @@ struct Empleado* cargarEmpleado(char tipo)
 		return empleado;
 	}	
 	return NULL;
+}
+
+struct Empleado* cargarInfoEmpleado(FILE *file, char tipo)
+{
+	struct Empleado* empleado = cargarEmpleado(tipo);
+	char* nombre_empleado = (char *)malloc(sizeof(char)*60);
+	int codigo_empleado, edad;
+	fscanf(file, "%d %s %d",  &codigo_empleado, nombre_empleado, &edad);
+
+	empleado->infoEmpleado->codigo_empleado = codigo_empleado;
+	empleado->infoEmpleado->nombre_empleado = nombre_empleado;
+	empleado->infoEmpleado->edad = edad;
+
+	return empleado;
+}
+
+struct Empleado* cargarEmpleadoMensual(FILE *file, struct Empleado* empleado)
+{
+	float salario;
+
+	fscanf(file, "%f", &salario);
+	empleado->empleadoMensual->salario = salario;
+
+	return empleado;
+}
+
+struct Empleado* cargarEmpleadoComision(FILE *file, struct Empleado* empleado)
+{
+	int pos = 0;
+	char zona;
+
+	fscanf(file, "%c", &zona);
+	empleado->empleadoComision->zona = zona;
+
+	while(pos < 20)
+	{
+		fscanf(file, "%f", &empleado->empleadoComision->ventas[pos]);
+		pos++;
+	}
+
+	return empleado;
+}
+
+struct Empleado* cargarEmpleadoPorHora(FILE *file, struct Empleado* empleado)
+{
+	char zona;
+	int horasTrabajadas;
+	fscanf(file, "%c %d", &zona, &horasTrabajadas);
+
+	empleado->empleadoPorHora->zona = zona;
+	empleado->empleadoPorHora->horasTrabajadas = horasTrabajadas;
+
+	return empleado;
 }
