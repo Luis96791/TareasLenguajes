@@ -32,10 +32,9 @@ void escribirEmpleado(struct Empleado* empleado)
 {
 	FILE *file;
 	file = fopen("ListaEmpleados.list", "a");
-	char tipo = obtenerTipoEmpleado(empleado), delimitador = ':';
+	char tipo = obtenerTipoEmpleado(empleado);
 
-	fprintf(file, "%c", tipo);
-	fprintf(file, "%c", delimitador);
+	fprintf(file, "%c\n", tipo);
 	escribirInfoEmpleado(empleado, file);
 
 	if (tipo == 'A')
@@ -79,27 +78,27 @@ void escribirInfoEmpleado(struct Empleado* empleado, FILE *file)
 	char* nombre_empleado = empleado->infoEmpleado->nombre_empleado;
 	int edad =  empleado->infoEmpleado->edad;
 
-	fprintf(file, "%d", codigo_empleado);
-	fprintf(file, "%s%s", ",", nombre_empleado);
-	fprintf(file, "%s%d", ",", edad);
+	fprintf(file, "%d\n", codigo_empleado);
+	fprintf(file, "%s\n", nombre_empleado);
+	fprintf(file, "%d\n", edad);
 }
 
 void escribirEmpleadoMensual(struct Empleado* empleado, FILE* file)
 {
 	float salario = empleado->empleadoMensual->salario;
 
-	fprintf(file, "%s%2.f%s", ",", salario, "\n");
+	fprintf(file, "%2.f\n", salario);
 }
 
 void escribirEmpleadoComision(struct Empleado* empleado, FILE *file)
 {
 	char zona = empleado->empleadoComision->zona;
-	fprintf(file, "%s%c", ",", zona);
+	fprintf(file, "%c\n", zona);
 	int pos = 0;
 
 	while(empleado->empleadoComision->ventas[pos] != 0)
 	{
-		fprintf(file, "%s%2.f", ",", empleado->empleadoComision->ventas[pos]);
+		fprintf(file, "%2.f%s", empleado->empleadoComision->ventas[pos], " ");
 		pos++;
 	}
 	fprintf(file, "%s", "\n");
@@ -109,8 +108,8 @@ void escribirEmpleadoPorHora(struct Empleado* empleado, FILE *file)
 {
 	char zona = empleado->empleadoPorHora->zona;
 	int horasTrabajadas = empleado->empleadoPorHora->horasTrabajadas;
-	fprintf(file, "%s%c", ",", zona);
-	fprintf(file, "%s%d%s", ",", horasTrabajadas, "\n");
+	fprintf(file, "%c\n", zona);
+	fprintf(file, "%d\n", horasTrabajadas);
 }
 
 // -----------------------------------------------------------------------------

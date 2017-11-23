@@ -44,11 +44,11 @@ int main(int argc, char const *argv[])
 
 	do
 	{
-		printf("1-. Ingresar Empleado\n");
-		printf("2-. Salvar a Archivo\n");
-		printf("3-. Cargar de Archivo\n");
-		printf("4-. Imprimir Reporte\n");
-		printf("5-. Salir\n\n");
+		printf("\n\t1-. Ingresar Empleado\n");
+		printf("\t2-. Salvar a Archivo\n");
+		printf("\t3-. Cargar de Archivo\n");
+		printf("\t4-. Imprimir Reporte\n");
+		printf("\t5-. Salir\n\n");
 		printf("Ingrese una opcion: ");
 		scanf("%d", &opcion);
 
@@ -64,7 +64,7 @@ int main(int argc, char const *argv[])
 			case 3:
 				break;
 			case 4:
-				agregarListaArbol(listaEmpleados);
+				agregarListaArbol(listaEmpleados, &_raiz);
 				imprimir(_raiz);
 				break;
 			default:

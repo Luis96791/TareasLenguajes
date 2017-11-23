@@ -13,8 +13,9 @@ void insertarNodo(raiz *_raiz, struct Empleado* empleado)
 {
 	if (*_raiz == NULL)
 	{
-		printf("entrando\n");
 		*_raiz = malloc(sizeof(nodoArbol));
+		(*_raiz)->empleado = nuevoEmpleado();
+		(*_raiz)->empleado->infoEmpleado = nuevoInfoEmpleado();
 		(*_raiz)->empleado->infoEmpleado->codigo_empleado = empleado->infoEmpleado->codigo_empleado;
 		(*_raiz)->hijo_der = NULL;
 		(*_raiz)->hijo_izq = NULL;
@@ -40,14 +41,13 @@ void imprimir(raiz _raiz)
 	}
 }
 
-void agregarListaArbol(struct ListaEmpleados* listaEmpleados)
+void agregarListaArbol(struct ListaEmpleados* listaEmpleados, raiz *_raiz)
 {
 	struct Empleado *nodo_temporal = listaEmpleados->inicio_lista;
-	raiz _raiz = NULL;
 
 	while(nodo_temporal != NULL)
 	{
-		insertarNodo(&_raiz, nodo_temporal);
+		insertarNodo(_raiz, nodo_temporal);
 		nodo_temporal = nodo_temporal->siguiente;
 	}
 }
