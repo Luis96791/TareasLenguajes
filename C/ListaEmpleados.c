@@ -9,6 +9,7 @@ struct ListaEmpleados
 
 void escribirListaEnArchivo(struct ListaEmpleados* listaEmpleados);
 void escribirEmpleado(struct Empleado* empleado);
+void crearArchivo();
 
 struct ListaEmpleados* nuevaListaEmpleados()
 {
@@ -51,10 +52,23 @@ void agregar(struct ListaEmpleados* listaEmpleados, struct Empleado* empleado)
 void escribirListaEnArchivo(struct ListaEmpleados* listaEmpleados)
 {
 	struct Empleado* nodo_temporal = listaEmpleados->inicio_lista;
+	crearArchivo();
 
 	while(nodo_temporal != NULL)
 	{
 		escribirEmpleado(nodo_temporal);
+		nodo_temporal = nodo_temporal->siguiente;
+	}
+}
+
+void imprimirLista(struct ListaEmpleados* listaEmpleados)
+{
+	struct Empleado* nodo_temporal = listaEmpleados->inicio_lista;
+
+	while(nodo_temporal != NULL)
+	{
+		printf("%d %s %d\n", nodo_temporal->infoEmpleado->codigo_empleado, nodo_temporal->infoEmpleado->nombre_empleado,
+			nodo_temporal->infoEmpleado->edad);
 		nodo_temporal = nodo_temporal->siguiente;
 	}
 }

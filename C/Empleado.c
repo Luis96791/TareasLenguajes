@@ -19,7 +19,6 @@ struct Empleado* nuevoEmpleado( void )
 struct Empleado* ingresarEmpleado(int tipo)
 {
 	struct Empleado* empleado = nuevoEmpleado();
-
 	empleado->infoEmpleado = ingresarInfoEmpleado();
 
 	if (tipo == 1)

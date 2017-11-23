@@ -35,15 +35,14 @@ struct Empleado* agregarNuevoEmpleado()
 int main(int argc, char const *argv[])
 {
 	raiz _raiz = NULL;
-	// crearArchivo();
 	struct ListaEmpleados* listaEmpleados;
-	struct Empleado* empleado = nuevoEmpleado();
 	listaEmpleados = nuevaListaEmpleados();
 
 	int opcion;
 
 	do
 	{
+		struct Empleado* empleado;
 		printf("\n\t1-. Ingresar Empleado\n");
 		printf("\t2-. Salvar a Archivo\n");
 		printf("\t3-. Cargar de Archivo\n");
@@ -62,7 +61,8 @@ int main(int argc, char const *argv[])
 				escribirListaEnArchivo(listaEmpleados);
 				break;
 			case 3:
-				leerEmpleado();
+				leerEmpleado(listaEmpleados);
+				imprimirLista(listaEmpleados);
 				break;
 			case 4:
 				agregarListaArbol(listaEmpleados, &_raiz);
