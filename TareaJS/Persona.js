@@ -2,14 +2,30 @@
 function Persona(nombre, edad) {
 	this.nombre = nombre;
 	this.edad = edad;
+	this.siguiente = null;
+
+
+	Persona.prototype.getNombre = function() {
+		return this.nombre;
+	};
+
+	Persona.prototype.getEdad = function() {
+		return this.edad;
+	};
+
+	Persona.prototype.setNombre = function(nombre) {
+		this.nombre = nombre;
+	};
+
+	Persona.prototype.setEdad = function(edad) {
+		this.edad = edad;
+	};
+
+	Persona.prototype.imprimir = function() {
+		console.log(this.getNombre()+" "+this.getEdad());
+	};
 }
 
-Persona.prototype.imprimir = function() {
-	console.log(this.nombre+" "+this.edad);
-};
+module.exports = Persona;
 
-var persona1 = new Persona("Luis", 22);
-var persona2 = new Persona("Ana", 21);
 
-persona1.imprimir();
-persona2.imprimir();
